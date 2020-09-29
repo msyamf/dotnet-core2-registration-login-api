@@ -15,7 +15,7 @@ using WebApi.Form;
 using WebApi.Entities;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System.Linq;
-using WebApi.Helpers.Validation;
+using WebApi.Helpers.Validation; 
 
 namespace WebApi.UserControllers
 {
@@ -58,7 +58,7 @@ namespace WebApi.UserControllers
                 {  
                     foreach (Claim claim in principal.Claims)  
                     {  
-                        Console.WriteLine("CLAIM TYPE: " + claim.Type + "; CLAIM VALUE: " + claim.Value );  
+                        //Console.WriteLine("CLAIM TYPE: " + claim.Type + "; CLAIM VALUE: " + claim.Value );  
                         if (claim.Type == "UserId")
                         {
                             UserId =  claim.Value;
@@ -67,6 +67,7 @@ namespace WebApi.UserControllers
                 }  
                 var data_user = (
                     from user in _context.Users
+                    where user.Id == int.Parse(UserId)
                     select new {
                          user.Id ,
                          user.LastName,
@@ -86,6 +87,53 @@ namespace WebApi.UserControllers
             }
         }
 
+        [HttpPut("update-profile"), Authorize]
+         public IActionResult UpdateProfile(MyProfileFrom MyProfileFrom)
+        { 
+            try
+            {
+                ClaimsPrincipal principal = User as ClaimsPrincipal;  
+                string UserId=""; 
+                if (null != principal)  
+                {  
+                    foreach (Claim claim in principal.Claims)  
+                    {  
+                       // Console.WriteLine("CLAIM TYPE: " + claim.Type + "; CLAIM VALUE: " + claim.Value );  
+                        if (claim.Type == "UserId")
+                        {
+                            UserId =  claim.Value;
+                        }
+                    }  
+                }  
+
+               var Profile = _context.ProfileUser.Where(x => x.UserId ==int.Parse(UserId)).First();
+               if(Profile == null)
+               {
+                   _context.ProfileUser.Add(
+                       new ProfileUser { 
+                        UserId = int.Parse(UserId),
+                        Alamat = MyProfileFrom.Alamat,
+                        Kodepos = MyProfileFrom.Kodepos,
+                        NoTelfon = MyProfileFrom.NoTelfon, 
+                       }); 
+               }
+               else
+               {
+                Profile.Alamat = MyProfileFrom.Alamat;
+                Profile.Kodepos = MyProfileFrom.Kodepos;
+                Profile.NoTelfon = MyProfileFrom.NoTelfon; 
+                _context.ProfileUser.Update(Profile);
+                
+               }
+                           
+               _context.SaveChanges(); 
+                return  Ok(new {message = "update Berhasil"});
+            }
+            catch (Exception ex)
+            {
+             return Ok(ex);
+            }
+        }
 
         [AllowAnonymous]
         [HttpPost("login")]
@@ -110,7 +158,7 @@ namespace WebApi.UserControllers
                 if (validate_msg != "")
                 {
                     error_message = validate_msg;
-                    throw new Exception();
+                    return BadRequest(new { message = validate_msg });
                 }
 
                 var user = _userService.Authenticate(login.username, login.pasword);
@@ -175,7 +223,7 @@ namespace WebApi.UserControllers
                 { 
                   {"Username", "required"}, 
                   {"Password", "required"}, 
-                  {"Email", "required"}, 
+                  {"Email", "required|email"}, 
                   {"FirstName", "required"}, 
                   {"LastName", "required"},  
                 };
@@ -184,7 +232,7 @@ namespace WebApi.UserControllers
                 if (validate_msg != "")
                 {
                     error_message = validate_msg;
-                    throw new Exception();
+                     return BadRequest(new { message = validate_msg });
                 }
 
                 var ChechEmail = _context.Users.Where(x => x.Email == UserRegister.Email || x.Username == UserRegister.Username).Count();

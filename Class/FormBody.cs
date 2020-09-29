@@ -10,7 +10,7 @@ namespace WebApi.Form
 
     public class MyProfileFrom
     { 
-        public int Alamat { get; set; }
+        public string Alamat { get; set; }
         public string Kodepos { get; set; }
         public string NoTelfon { get; set; } 
     }

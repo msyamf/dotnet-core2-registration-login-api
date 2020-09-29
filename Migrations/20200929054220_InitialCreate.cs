@@ -37,7 +37,7 @@ namespace WebApi.Migrations
                     Kodepos = table.Column<string>(nullable: true),
                     Alamat = table.Column<string>(nullable: true),
                     NoTelfon = table.Column<string>(nullable: true),
-                    UserId = table.Column<int>(nullable: true)
+                    UserId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -47,7 +47,7 @@ namespace WebApi.Migrations
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(

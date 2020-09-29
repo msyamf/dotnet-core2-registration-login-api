@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace WebApi.Helpers.Validation
 {
@@ -45,6 +46,12 @@ namespace WebApi.Helpers.Validation
         {
             try
             {
+                if (rule == "email")
+                { 
+                    var foo = new EmailAddressAttribute(); 
+                    return (!foo.IsValid(val)) ?  key + " value is not a email." : "";
+                }
+
                 if (rule == "is_number")
                 {
                     if (!checkIsNumber(val))

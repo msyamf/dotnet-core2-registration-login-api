@@ -12,7 +12,7 @@ cd dotnet-core2-registration-login-api
 
 ### install dependency 
 ```bash 
-dotnet prepare
+dotnet restore
 ```
 
 ### update database  
@@ -38,6 +38,7 @@ contoh untuk buat tabel baru, buka file `Entities/Model.cs` kode dibawah sebagai
         public virtual string Kodepos { get; set; }
         public string Alamat { get; set; }
         public virtual string NoTelfon { get; set; }
+         public int UserId { get; set; }
         public User User { get; set; }
     }
 ...

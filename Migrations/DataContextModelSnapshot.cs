@@ -28,7 +28,7 @@ namespace WebApi.Migrations
 
                     b.Property<string>("NoTelfon");
 
-                    b.Property<int?>("UserId");
+                    b.Property<int>("UserId");
 
                     b.HasKey("Id");
 
@@ -67,7 +67,8 @@ namespace WebApi.Migrations
                 {
                     b.HasOne("WebApi.Entities.User", "User")
                         .WithMany("ProfileUser")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

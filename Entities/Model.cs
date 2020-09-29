@@ -23,6 +23,7 @@ namespace WebApi.Entities
         public virtual string Kodepos { get; set; }
         public string Alamat { get; set; }
         public virtual string NoTelfon { get; set; }
+        public int UserId { get; set; }
         public User User { get; set; }
     }
 }
