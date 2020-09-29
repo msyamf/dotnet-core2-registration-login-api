@@ -25,8 +25,37 @@ dotnet ef database update
 ```bash 
 dotnet run
 ```
+ lalu buka broser `http://localhost:4000/` jika ingin coba test api lewat `Swagger UI`
 
+### buat model 
+contoh untuk buat tabel baru, buka file `Entities/Model.cs` kode dibawah sebagai contoh
 
+```c#
+...
+    public class ProfileUser
+    {
+        public int Id { get; set; }
+        public virtual string Kodepos { get; set; }
+        public string Alamat { get; set; }
+        public virtual string NoTelfon { get; set; }
+        public User User { get; set; }
+    }
+...
+```
+ buka file `Entities/DataContext.cs` untuk Konfigurasi relasi tabel
+ 
+ ### migrasi database
+ ```bash
+ dotnet ef migrations add InitialCreate
+ ``` 
+### update database
+ ```bash
+  dotnet ef database update
+ ```
+ 
+ 
+ 
+ ### tree
 ```bash
 ├── appsettings.Development.json
 ├── appsettings.json
@@ -58,33 +87,6 @@ dotnet run
 ├── Startup.cs
 └── WebApi.csproj
 ```
-
-### buat model 
-contoh untuk buat tabel baru, buka file `Entities/Model.cs` kode dibawah sebagai contoh
-
-```c#
-...
-    public class ProfileUser
-    {
-        public int Id { get; set; }
-        public virtual string Kodepos { get; set; }
-        public string Alamat { get; set; }
-        public virtual string NoTelfon { get; set; }
-        public User User { get; set; }
-    }
-...
-```
- buka file `Entities/DataContext.cs` untuk Konfigurasi relasi tabel
- 
- ### migrasi database
- ```bash
- dotnet ef migrations add InitialCreate
- ``` 
-### update database
- ```bash
-  dotnet ef database update
- ```
- ### lalu coba jalankan ulang `dotnet run`
  
  
  
