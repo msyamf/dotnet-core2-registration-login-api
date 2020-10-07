@@ -12,8 +12,11 @@ using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
 using System; 
+using System.IO; 
+using Microsoft.AspNetCore.Http;
 using Microsoft.OpenApi.Models;
 using WebApi.Entities;
+using Microsoft.Extensions.FileProviders;
 namespace WebApi
 {
     public class Startup
@@ -82,32 +85,30 @@ namespace WebApi
          
             services.AddSwaggerGen(c =>
             {
-            c.SwaggerDoc("v1", new OpenApiInfo { 
-                Title = "My API", 
-                Version = "v1" 
-            });
-            c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme {
-                In = ParameterLocation.Header, 
-                Description = "Please insert JWT with <b>Bearer</b> into field",
-                Name = "Authorization",
-                Type = SecuritySchemeType.ApiKey 
-            });
-            c.AddSecurityRequirement(new OpenApiSecurityRequirement {
-            { 
-                new OpenApiSecurityScheme 
-                { 
-                Reference = new OpenApiReference 
-                { 
-                    Type = ReferenceType.SecurityScheme,
-                    Id = "Bearer" 
-                } 
-                },
-                new string[] { } 
-                } 
-            });
-            });
-                        
-        
+                c.SwaggerDoc("v1", new OpenApiInfo { 
+                    Title = "My API", 
+                    Version = "v1" 
+                });
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme {
+                    In = ParameterLocation.Header, 
+                    Description = "Please insert JWT with <b>Bearer</b> into field",
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey 
+                });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement {
+                    { 
+                        new OpenApiSecurityScheme 
+                        { 
+                        Reference = new OpenApiReference 
+                        { 
+                            Type = ReferenceType.SecurityScheme,
+                            Id = "Bearer" 
+                        } 
+                        },
+                        new string[] { } 
+                        } 
+                    });
+                });                      
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -141,6 +142,20 @@ namespace WebApi
                 c.ShowExtensions();
                 c.EnableValidator();
             });
+
+
+            bool folderExists = Directory.Exists(Path.Combine("Upload", "Images"));
+            if (!folderExists){
+                Directory.CreateDirectory(Path.Combine("Upload", "Images"));
+            }
+
+            app.UseStaticFiles();
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"Upload")),
+                RequestPath = new PathString("/Upload")
+            });
+
         }
     }
 }

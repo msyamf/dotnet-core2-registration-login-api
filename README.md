@@ -63,7 +63,24 @@ contoh untuk buat tabel baru, buka file `Entities/Model.cs` kode dibawah sebagai
  ```
  
  
- 
+
+ ### Build a project
+ lihat link berikut [https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-build](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-build) untuk tutorial lengkap nya
+
+```bash
+  dotnet build
+```
+
+jika sudah akan ada folder seperti berikut `dotnet-core2-registration-login-api/bin/Debug/netcoreapp2.2`
+
+masuk dalam folder dan jalankan jika ingin mencobanya
+```bash
+dotnet WebApi.dll
+```
+
+untuk uplod pada `VPS` kunjungi link brikut
+[https://docs.microsoft.com/en-us/aspnet/core/host-and-deploy/linux-nginx?view=aspnetcore-2.2](https://docs.microsoft.com/en-us/aspnet/core/host-and-deploy/linux-nginx?view=aspnetcore-2.2)
+
  ### tree
 ```bash
 ├── appsettings.Development.json
