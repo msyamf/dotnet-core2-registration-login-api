@@ -1,5 +1,13 @@
 # aspnet-core-registration-login-api
 
+Download dotnet 2.2
+* [windows](https://dotnet.microsoft.com/download/dotnet-core/thank-you/sdk-2.2.207-windows-x64-installer)
+
+* linux
+```bash 
+sudo apt install dotnet-sdk-2.2
+```
+
 ### Clone repositori
 ```bash 
 git clone https://github.com/msyamf/dotnet-core2-registration-login-api.git
