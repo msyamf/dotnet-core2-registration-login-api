@@ -8,10 +8,10 @@ namespace WebApi.Helpers
 
         public static string DB_HOST = "127.0.0.1";
         public static string DB_USER = "root";
-        public static string DB_PW = "";
-        public static string DB_PORT = "3306";
+        public static string DB_PW = "msf";
+        public static string DB_PORT = "30000";  // default port mysql 3306
         public static string DB_NAME = "library";
-        public static string DB_CONN_STRING = $"server={DB_HOST};database={DB_NAME};user={DB_USER};password={DB_PW}";
+        public static string DB_CONN_STRING = $"server={DB_HOST};database={DB_NAME};user={DB_USER};password={DB_PW};port={DB_PORT}";
     }
 }
 

@@ -1,5 +1,5 @@
 # aspnet-core-registration-login-api
-
+pertama siapkan koneksi internet, Lektop dan secangkir kopi KOPI :)
 Download dotnet 2.2
 * [windows](https://dotnet.microsoft.com/download/dotnet-core/thank-you/sdk-2.2.207-windows-x64-installer)
 
@@ -17,6 +17,9 @@ git clone https://github.com/msyamf/dotnet-core2-registration-login-api.git
 ```bash 
 cd dotnet-core2-registration-login-api
 ```
+
+### seting DB
+Buka file `Helpers/AppSettings.cs` edit sesuai koneksi yg ada
 
 ### install dependency 
 ```bash 
@@ -81,6 +84,12 @@ dotnet WebApi.dll
 untuk uplod pada `VPS` kunjungi link brikut
 [https://docs.microsoft.com/en-us/aspnet/core/host-and-deploy/linux-nginx?view=aspnetcore-2.2](https://docs.microsoft.com/en-us/aspnet/core/host-and-deploy/linux-nginx?view=aspnetcore-2.2)
 
+### NOTE
+Jika ingin di build jadi `EXE` atau binary pada linux
+```bash
+dotnet publish -c Release -r win10-x64
+dotnet publish -c Release -r ubuntu.16.10-x64
+```
  ### tree
 ```bash
 ├── appsettings.Development.json
