@@ -46,7 +46,7 @@ namespace WebApi.NewController
             { 
                 var series = new List<object>();
                 var sql = _context.Database.GetDbConnection().CreateCommand();
-                    sql.CommandText = "select * from users";
+                    sql.CommandText = "SELECT * FROM Users";
                     _context.Database.OpenConnection();
                 var reader = sql.ExecuteReader();
                 if (reader.HasRows)
